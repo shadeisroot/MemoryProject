@@ -10,7 +10,7 @@ public class Piece extends ImageView {
 
     public Piece(int nr ,int x, int y, Main m){
         id = nr;
-        String filnavn = "Badger" + ".jpg";
+        String filnavn = "b" + id + ".jpg";
         setImage(new Image(getClass().getResource(filnavn).toString()));
         setX(x*100);
         setY(y*100);

@@ -1,12 +1,13 @@
 package com.example.memoryproject;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Main extends Application {
@@ -16,7 +17,7 @@ public class Main extends Application {
 
     public void start(Stage stage){
         root = new Pane();
-        root.setPrefSize(400, 400);
+        root.setPrefSize(400, 500);
 
 
         Scene scene = new Scene(root);
@@ -29,19 +30,17 @@ public class Main extends Application {
     }
 
     public void Buildgame(){
-        piecess = new Piece[16][16];
+        piecess = new Piece[20][20];
         int id = 1;
-        for (int i=0; i<4; i++)
+        for (int i=0; i<5; i++)
             for (int j=0; j<4; j++) {
-                if (id <= 16) {      // Der er kun 15 brikker - den 16. er det tomme felt.
+                if (id <= 20) {      // Der er kun 15 brikker - den 16. er det tomme felt.
                     // Brikkerne gemmes i et 2D array og sættes på scenen
                     piecess[j][i] = new Piece(id++, j, i, this);
                     root.getChildren().add(piecess[j][i]);
                 }
             }
-
     }
-
     public static void main(String[] args) {
         launch();
     }
