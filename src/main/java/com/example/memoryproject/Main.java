@@ -14,7 +14,6 @@ public class Main extends Application {
     private Pane root;
     private Piece[][] piecess;
     @Override
-
     public void start(Stage stage){
         root = new Pane();
         root.setPrefSize(400, 500);
@@ -22,7 +21,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("Hello!");
+        stage.setTitle("MemoryGame");
         stage.setScene(scene);
         Buildgame();
         stage.show();
@@ -34,8 +33,7 @@ public class Main extends Application {
         int id = 1;
         for (int i=0; i<5; i++)
             for (int j=0; j<4; j++) {
-                if (id <= 20) {      // Der er kun 15 brikker - den 16. er det tomme felt.
-                    // Brikkerne gemmes i et 2D array og sættes på scenen
+                if (id <= 20) {
                     piecess[j][i] = new Piece(id++, j, i, this);
                     root.getChildren().add(piecess[j][i]);
                 }

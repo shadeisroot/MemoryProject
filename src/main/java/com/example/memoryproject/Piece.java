@@ -17,9 +17,4 @@ public class Piece extends ImageView {
         mn = m;
     }
 
-    public void setPosition(int x, int y) {
-        setX(x);
-        setY(y);
-    }
-
 }
