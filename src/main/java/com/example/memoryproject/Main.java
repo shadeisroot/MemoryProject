@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private Pane root;
-    private Piece[][] piecess;
 
     @Override
     public void start(Stage stage){
@@ -17,13 +16,9 @@ public class Main extends Application {
         root.setPrefSize(1250, 1000);
 
 
-       EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-
-           @Override
-            public void handle(MouseEvent event) {
-                Piece p = (Piece) event.getSource();
-                p.flip();
-            }
+       EventHandler<MouseEvent> eventHandler = event -> {
+            Piece p = (Piece) event.getSource();
+            p.flip();
         };
 
         Scene scene = new Scene(root);
@@ -36,14 +31,14 @@ public class Main extends Application {
     }
 
     public void buildGame(EventHandler<MouseEvent> eventHandler) {
-        piecess = new Piece[5][4];
+        Piece[][] pieces = new Piece[5][4];
         int id = 1;
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 5; j++) {
                 if (id <= 20) {
-                    piecess[j][i] = new Piece(id++, j, i, this);
-                    root.getChildren().add(piecess[j][i]);
-                    piecess[j][i].addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+                    pieces[j][i] = new Piece(id++, j, i, this);
+                    root.getChildren().add(pieces[j][i]);
+                    pieces[j][i].addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
                 }
             }
     }
