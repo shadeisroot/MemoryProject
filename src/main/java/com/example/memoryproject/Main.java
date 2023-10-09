@@ -1,15 +1,11 @@
 package com.example.memoryproject;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class Main extends Application {
     private Pane root;
@@ -34,12 +30,12 @@ public class Main extends Application {
 
         stage.setTitle("MemoryGame");
         stage.setScene(scene);
-        buildgame(eventHandler);
+        buildGame(eventHandler);
         stage.show();
 
     }
 
-    public void buildgame(EventHandler<MouseEvent> eventHandler) {
+    public void buildGame(EventHandler<MouseEvent> eventHandler) {
         piecess = new Piece[5][4];
         int id = 1;
         for (int i = 0; i < 4; i++)
