@@ -14,10 +14,11 @@ import java.io.IOException;
 public class Main extends Application {
     private Pane root;
     private Piece[][] piecess;
+
     @Override
     public void start(Stage stage){
         root = new Pane();
-        root.setPrefSize(1000, 1000);
+        root.setPrefSize(1250, 1000);
 
 
        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
@@ -25,7 +26,7 @@ public class Main extends Application {
            @Override
             public void handle(MouseEvent event) {
                 Piece p = (Piece) event.getSource();
-               p.flip();
+                p.flip();
             }
         };
 
@@ -39,10 +40,10 @@ public class Main extends Application {
     }
 
     public void buildgame(EventHandler<MouseEvent> eventHandler) {
-        piecess = new Piece[4][5];
+        piecess = new Piece[5][4];
         int id = 1;
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 5; j++) {
                 if (id <= 20) {
                     piecess[j][i] = new Piece(id++, j, i, this);
                     root.getChildren().add(piecess[j][i]);
@@ -50,7 +51,6 @@ public class Main extends Application {
                 }
             }
     }
-
 
     public static void main(String[] args) {
         launch();
