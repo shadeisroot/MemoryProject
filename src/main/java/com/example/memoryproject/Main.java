@@ -10,11 +10,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Pane root;
 
+
     @Override
     public void start(Stage stage){
         root = new Pane();
         root.setPrefSize(1250, 1000);
-
+        MemeArray.shuffleMemes();
 
        EventHandler<MouseEvent> eventHandler = event -> {
             Piece p = (Piece) event.getSource();
