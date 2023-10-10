@@ -7,8 +7,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Main extends Application {
-    private Pane root;
+    public Pane root;
+    Comparer comparer = new Comparer(this);
+    ArrayList<Piece> comparedPieces = new ArrayList<>();
 
 
     @Override
@@ -20,6 +25,10 @@ public class Main extends Application {
        EventHandler<MouseEvent> eventHandler = event -> {
             Piece p = (Piece) event.getSource();
             p.flip();
+            comparedPieces.add(p);
+            comparer.clickedMemesFromMain.add(p.filenameee);
+            comparer.compareMemes();
+            remover();
         };
 
         Scene scene = new Scene(root);
@@ -42,6 +51,19 @@ public class Main extends Application {
                     pieces[j][i].addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
                 }
             }
+    }
+
+    public void remover(){
+        if (comparer.memesAreSame && comparedPieces.size() == 2 && comparedPieces.get(0).id != comparedPieces.get(1).id) {
+            root.getChildren().remove(comparedPieces.get(0));
+            root.getChildren().remove(comparedPieces.get(1));
+            comparedPieces.clear();
+            comparer.memesAreSame = false;
+        } else if (comparedPieces.size() == 2 && !comparer.memesAreSame) {
+            comparedPieces.get(0).flipBack();
+            comparedPieces.get(1).flipBack();
+            comparedPieces.clear();
+        }
     }
 
     public static void main(String[] args) {
