@@ -1,14 +1,21 @@
 package com.example.memoryproject;
 
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class Piece extends ImageView {
     private Main mn;
-    private int id;
+    public int id;
 
     private Image frontside;
     private Image backside;
@@ -45,6 +52,13 @@ public class Piece extends ImageView {
             setImage(frontside);
             fs = true;
             clickedMemes.add(this.filenameee);
+        }
+    }
+
+    public void flipBack(){
+        if (fs) {
+            setImage(backside);
+            fs = false;
         }
     }
 }

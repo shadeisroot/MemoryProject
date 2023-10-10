@@ -16,7 +16,7 @@ public class MemeArray extends Application {
             "meme8.png", "meme9.png", "meme10.png"));
 
     public static void shuffleMemes() {
-        if (isShuffled == false) {
+        if (!isShuffled) {
             Collections.shuffle(memeNumbers);
             isShuffled = true;
         }
