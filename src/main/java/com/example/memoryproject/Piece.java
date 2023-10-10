@@ -1,13 +1,7 @@
 package com.example.memoryproject;
 
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.PathTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
