@@ -12,24 +12,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Pane root;
     private Pane introscene;
+
     private WelcomeScreen ws;
 
     @Override
     public void start(Stage stage) {
-        introscene = new StackPane();
-        introscene.setPrefSize(1250, 1000);
-        Button btn = new Button("Start Game");
-        btn.setOnAction(e -> {
-            gameStart(stage);
-        });
-        btn.setScaleX(5);
-        btn.setScaleY(5);
-        introscene.getChildren().add(btn);
-
-        Scene intro = new Scene(introscene);
-        stage.setTitle("Welcome");
-        stage.setScene(intro);
-        stage.show();
+        ws = new WelcomeScreen(stage, this);
     }
 
     public void gameStart(Stage stage){
