@@ -17,7 +17,12 @@ public class Main extends Application {
 
 
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
+        WelcomeScreen ws = new WelcomeScreen(stage, this);
+
+    }
+
+    public void gameStart(Stage stage) {
         root = new Pane();
         root.setPrefSize(1250, 1000);
         MemeArray.shuffleMemes();
