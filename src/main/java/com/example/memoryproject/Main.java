@@ -2,6 +2,7 @@ package com.example.memoryproject;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -15,6 +16,7 @@ public class Main extends Application {
     Comparer comparer = new Comparer(this);
     ArrayList<Piece> comparedPieces = new ArrayList<>();
 
+    ArrayList<Piece> allPieces = new ArrayList<>();
 
 
     @Override
@@ -28,28 +30,34 @@ public class Main extends Application {
         root.setPrefSize(1250, 1000);
         MemeArray.shuffleMemes();
 
-        EventHandler<MouseEvent> eventHandler = event -> {
-            Piece p = (Piece) event.getSource();
-            if(!comparedPieces.isEmpty()){
-                if (comparedPieces.get(0) == p){
-                    p.flip();
-                    comparedPieces.clear();
+            EventHandler<MouseEvent> eventHandler = event -> {
+                if (!Piece.readyForAction) {
                     return;
                 }
-            }
+                while (Piece.readyForAction) {
 
-            comparedPieces.add(p);
-            p.flip();
-            comparer.compareMemes(comparedPieces);
-            remover(stage);
+                    Piece p = (Piece) event.getSource();
+                    if (!comparedPieces.isEmpty()) {
+                        if (comparedPieces.get(0) == p) {
+                            p.flip();
+                            comparedPieces.clear();
+                            return;
+                        }
+                    }
 
-        };
+                    comparedPieces.add(p);
+                    p.flip();
+                    comparer.compareMemes(comparedPieces);
+                    remover(stage);
+                }
+            };
 
         Scene scene = new Scene(root);
 
         stage.setTitle("MemoryGame");
         stage.setScene(scene);
         buildGame(eventHandler);
+        scene.setCamera(new PerspectiveCamera());
         stage.show();
 
     }
@@ -57,7 +65,7 @@ public class Main extends Application {
         EndScreen es = new EndScreen(stage, this);
         if(endGameCounter == 10){
             es.screenEnd(stage);
-    }
+        }
 
 
     }
@@ -83,9 +91,9 @@ public class Main extends Application {
             endGameCounter++;
             endingthegame(stage);
         } else if (comparedPieces.size() == 2 && !comparer.memesAreSame) {
-            comparedPieces.get(0).flipBack();
-            comparedPieces.get(1).flipBack();
-            comparedPieces.clear();
+                comparedPieces.get(0).showBackSide();
+                comparedPieces.get(1).showBackSide();
+                comparedPieces.clear();
         }
     }
 
