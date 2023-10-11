@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Main extends Application {
     public Pane root;
@@ -27,13 +26,20 @@ public class Main extends Application {
         root.setPrefSize(1250, 1000);
         MemeArray.shuffleMemes();
 
-       EventHandler<MouseEvent> eventHandler = event -> {
+        EventHandler<MouseEvent> eventHandler = event -> {
             Piece p = (Piece) event.getSource();
-            p.flip();
+            if(!comparedPieces.isEmpty()){
+                if (comparedPieces.get(0) == p){
+                    p.flip();
+                    comparedPieces.clear();
+                    return;
+                }
+            }
             comparedPieces.add(p);
-            comparer.clickedMemesFromMain.add(p.filenameee);
-            comparer.compareMemes();
+            p.flip();
+            comparer.compareMemes(comparedPieces);
             remover();
+
         };
 
         Scene scene = new Scene(root);

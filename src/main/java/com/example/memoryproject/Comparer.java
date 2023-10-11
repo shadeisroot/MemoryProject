@@ -8,39 +8,24 @@ import java.util.Objects;
 
 public class Comparer extends Application {
 
-
-
-    public ArrayList<String> clickedMemesFromMain = new ArrayList<>();
     public boolean memesAreSame = false;
     public  boolean shouldFlipBack = false;
-    private String pieceOneFile;
-    private String pieceTwoFile;
 
     public Comparer(Main m) {
 
     }
 
-    public static void main(String[] args) {
 
-    }
-
-
-
-    public void compareMemes(){
-        if (clickedMemesFromMain.size() == 2){
-            if (Objects.equals(clickedMemesFromMain.get(0), clickedMemesFromMain.get(1))){
-                pieceOneFile = clickedMemesFromMain.get(0);
-                pieceTwoFile = clickedMemesFromMain.get(1);
+    public void compareMemes(ArrayList<Piece> pieceArrayList){
+        if (pieceArrayList.size() == 2){
+            if (Objects.equals(pieceArrayList.get(0).filenameee, pieceArrayList.get(1).filenameee)){
                 memesAreSame = true;
                 System.out.println("memes are same and should be deleted.");
                 shouldFlipBack = false;
-                clickedMemesFromMain.clear();
             } else {
                 memesAreSame = false;
                 System.out.println("memes are not same and should not be deleted.");
-                clickedMemesFromMain.clear();
                 shouldFlipBack = true;
-                System.out.println(shouldFlipBack);
             }
         }
     }
