@@ -11,17 +11,19 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     public Pane root;
+    public int endGameCounter = 0;
     Comparer comparer = new Comparer(this);
     ArrayList<Piece> comparedPieces = new ArrayList<>();
+
 
 
     @Override
     public void start(Stage stage) {
         WelcomeScreen ws = new WelcomeScreen(stage, this);
-
     }
 
     public void gameStart(Stage stage) {
+
         root = new Pane();
         root.setPrefSize(1250, 1000);
         MemeArray.shuffleMemes();
@@ -35,10 +37,11 @@ public class Main extends Application {
                     return;
                 }
             }
+
             comparedPieces.add(p);
             p.flip();
             comparer.compareMemes(comparedPieces);
-            remover();
+            remover(stage);
 
         };
 
@@ -50,7 +53,14 @@ public class Main extends Application {
         stage.show();
 
     }
+    public void endingthegame(Stage stage){
+        EndScreen es = new EndScreen(stage, this);
+        if(endGameCounter == 10){
+            es.screenEnd(stage);
+    }
 
+
+    }
     public void buildGame(EventHandler<MouseEvent> eventHandler) {
         Piece[][] pieces = new Piece[5][4];
         int id = 1;
@@ -64,12 +74,14 @@ public class Main extends Application {
             }
     }
 
-    public void remover(){
+    public void remover(Stage stage){
         if (comparer.memesAreSame && comparedPieces.size() == 2 && comparedPieces.get(0).id != comparedPieces.get(1).id) {
             root.getChildren().remove(comparedPieces.get(0));
             root.getChildren().remove(comparedPieces.get(1));
             comparedPieces.clear();
             comparer.memesAreSame = false;
+            endGameCounter++;
+            endingthegame(stage);
         } else if (comparedPieces.size() == 2 && !comparer.memesAreSame) {
             comparedPieces.get(0).flipBack();
             comparedPieces.get(1).flipBack();
