@@ -13,38 +13,37 @@ import java.util.ArrayList;
 public class Main extends Application {
     public Pane root;
     public int endGameCounter = 0;
-    Comparer comparer = new Comparer(this);
+    Comparer comparer = new Comparer();
     ArrayList<Piece> comparedPieces = new ArrayList<>();
 
-    ArrayList<Piece> allPieces = new ArrayList<>();
 
     private Stage stage;
+
+    static int imagesFlipped = 0;
 
 
     @Override
     public void start(Stage stage) {
-        WelcomeScreen ws = new WelcomeScreen(stage, this);
+        WelcomeScreen ws = new WelcomeScreen(stage);
     }
 
     public void gameStart(Stage stage) {
-
         root = new Pane();
         root.setPrefSize(1250, 1000);
         MemeArray.shuffleMemes();
         this.stage = stage;
         EventHandler<MouseEvent> eventHandler = event -> {
             Piece p = (Piece) event.getSource();
-            if (!comparedPieces.isEmpty()) {
-                if (comparedPieces.get(0) == p) {
-                    p.flip();
-                    comparedPieces.clear();
-                    return;
-                }
+            if (!comparedPieces.isEmpty() && comparedPieces.get(0) == p) {
+                p.flipBack();
+                imagesFlipped++;
+                comparedPieces.clear();
+                return;
             }
             comparedPieces.add(p);
             p.flip();
+            imagesFlipped++;
             comparer.compareMemes(comparedPieces);
-
         };
 
         Scene scene = new Scene(root);
@@ -56,8 +55,8 @@ public class Main extends Application {
         stage.show();
 
     }
-    public void endingthegame(Stage stage){
-        EndScreen es = new EndScreen(stage, this);
+    public void endingTheGame(Stage stage){
+        EndScreen es = new EndScreen();
         if(endGameCounter == 10){
             es.screenEnd(stage);
         }
@@ -84,7 +83,7 @@ public class Main extends Application {
             comparedPieces.clear();
             comparer.memesAreSame = false;
             endGameCounter++;
-            endingthegame(stage);
+            endingTheGame(stage);
         } else if (comparedPieces.size() == 2 && !comparer.memesAreSame) {
             comparedPieces.get(0).showBackSide();
             comparedPieces.get(1).showBackSide();
