@@ -102,4 +102,29 @@ public class Piece extends ImageView {
         showBackSequence.setOnFinished(e -> fs = false);
         showBackSequence.setOnFinished(e -> mn.runRemover());
     }
+    public void flipBack(){
+            readyForAction = false;
+            RotateTransition rotatorHideFront = new RotateTransition(Duration.millis(300), this);
+            rotatorHideFront.setAxis(Rotate.Y_AXIS);
+            rotatorHideFront.setFromAngle(0);
+            rotatorHideFront.setToAngle(90);
+            rotatorHideFront.setInterpolator(Interpolator.LINEAR);
+            rotatorHideFront.setCycleCount(1);
+            rotatorHideFront.setOnFinished(e -> setImage(backside));
+
+            RotateTransition rotatorShowBack = new RotateTransition(Duration.millis(300), this);
+            rotatorShowBack.setAxis(Rotate.Y_AXIS);
+            rotatorShowBack.setFromAngle(90);
+            rotatorShowBack.setToAngle(0);
+            rotatorShowBack.setInterpolator(Interpolator.LINEAR);
+            rotatorShowBack.setCycleCount(1);
+
+            SequentialTransition showBackSequence = new SequentialTransition(rotatorHideFront, rotatorShowBack);
+            showBackSequence.play();
+
+            showBackSequence.setOnFinished(e -> readyForAction = true);
+            showBackSequence.setOnFinished(e -> mn.comparedPieces.clear());
+            showBackSequence.setOnFinished(e -> fs = false);
+        }
+
 }

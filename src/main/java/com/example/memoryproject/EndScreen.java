@@ -2,30 +2,51 @@ package com.example.memoryproject;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class EndScreen extends ImageView {
-    private Button btn;
-    private Pane endScreen;
-    private Main mn;
 
-    public EndScreen(Stage stage, Main mm){
+
+    Image titleScreen = new Image(getClass().getResource("FrontScreen.png").toString());
+    Background bG = new Background(new BackgroundImage(titleScreen, null, null, null, null));
+
+
+    String tempTries;
+    Label tries = new Label(tempTries);
+    int t;
+    public EndScreen(){
 
     }
     public void screenEnd(Stage stage){
         Main mn = new Main();
-        endScreen = new StackPane();
+        Pane endScreen = new Pane();
         endScreen.setPrefSize(1250, 1000);
         Button btn = new Button("Reset Game");
-        btn.setOnAction(e -> {
-            mn.gameStart(stage);
-        });
+        btn.setOnAction(e -> mn.gameStart(stage));
+        endScreen.setBackground(bG);
         btn.setScaleX(5);
         btn.setScaleY(5);
+        btn.setLayoutX(625);
+        btn.setLayoutY(500);
+
         endScreen.getChildren().add(btn);
+        t = Main.imagesFlipped;
+        tempTries = "Attempts: "+ t;
+
+        tries.setLayoutX(625);
+        tries.setLayoutY(300);
+        tries.setScaleX(5);
+        tries.setScaleY(5);
+        tries.setTextFill(Color.WHITE);
+        tries.setText(tempTries);
+        endScreen.getChildren().add(tries);
 
         Scene outtro = new Scene(endScreen);
         stage.setTitle("Welcome");
