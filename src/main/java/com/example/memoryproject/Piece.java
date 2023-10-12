@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 
@@ -22,6 +23,7 @@ public class Piece extends ImageView {
 
     public boolean fs;
     public ArrayList<String> gottenMemes;
+
 
     public Piece(int nr, int x, int y, Main m) {
         //shuffleMemes();
@@ -43,11 +45,11 @@ public class Piece extends ImageView {
 
 
     public void flip() {
-            if (fs) {
-                showBackSide();
-            } else {
-                showFrontSide();
-            }
+        if (fs) {
+            showBackSide();
+        } else {
+            showFrontSide();
+        }
     }
 
     public void showFrontSide(){
@@ -72,9 +74,11 @@ public class Piece extends ImageView {
         showFrontSequence.play();
         showFrontSequence.setOnFinished(e -> readyForAction = true);
         showFrontSequence.setOnFinished(e -> fs = true);
+        showFrontSequence.setOnFinished(e -> mn.runRemover());
     }
 
     public void showBackSide(){
+
         readyForAction = false;
         RotateTransition rotatorHideFront = new RotateTransition(Duration.millis(300), this);
         rotatorHideFront.setAxis(Rotate.Y_AXIS);
@@ -93,7 +97,9 @@ public class Piece extends ImageView {
 
         SequentialTransition showBackSequence = new SequentialTransition(rotatorHideFront, rotatorShowBack);
         showBackSequence.play();
+
         showBackSequence.setOnFinished(e -> readyForAction = true);
         showBackSequence.setOnFinished(e -> fs = false);
+        showBackSequence.setOnFinished(e -> mn.runRemover());
     }
 }

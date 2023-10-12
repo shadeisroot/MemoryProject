@@ -18,6 +18,8 @@ public class Main extends Application {
 
     ArrayList<Piece> allPieces = new ArrayList<>();
 
+    private Stage stage;
+
 
     @Override
     public void start(Stage stage) {
@@ -29,28 +31,21 @@ public class Main extends Application {
         root = new Pane();
         root.setPrefSize(1250, 1000);
         MemeArray.shuffleMemes();
-
-            EventHandler<MouseEvent> eventHandler = event -> {
-                if (!Piece.readyForAction) {
+        this.stage = stage;
+        EventHandler<MouseEvent> eventHandler = event -> {
+            Piece p = (Piece) event.getSource();
+            if (!comparedPieces.isEmpty()) {
+                if (comparedPieces.get(0) == p) {
+                    p.flip();
+                    comparedPieces.clear();
                     return;
                 }
-                while (Piece.readyForAction) {
+            }
+            comparedPieces.add(p);
+            p.flip();
+            comparer.compareMemes(comparedPieces);
 
-                    Piece p = (Piece) event.getSource();
-                    if (!comparedPieces.isEmpty()) {
-                        if (comparedPieces.get(0) == p) {
-                            p.flip();
-                            comparedPieces.clear();
-                            return;
-                        }
-                    }
-
-                    comparedPieces.add(p);
-                    p.flip();
-                    comparer.compareMemes(comparedPieces);
-                    remover(stage);
-                }
-            };
+        };
 
         Scene scene = new Scene(root);
 
@@ -91,10 +86,16 @@ public class Main extends Application {
             endGameCounter++;
             endingthegame(stage);
         } else if (comparedPieces.size() == 2 && !comparer.memesAreSame) {
-                comparedPieces.get(0).showBackSide();
-                comparedPieces.get(1).showBackSide();
-                comparedPieces.clear();
+            comparedPieces.get(0).showBackSide();
+            comparedPieces.get(1).showBackSide();
+            comparedPieces.clear();
         }
+    }
+
+    //Det eneste denne metode gør, er at køre metoden ovenover.. Det er så fucking jank, men det virker, hvis man ikke
+    //trykker for hurtigt.
+    public void runRemover(){
+        remover(this.stage);
     }
 
     public static void main(String[] args) {
