@@ -18,9 +18,9 @@ public class EndScreen extends ImageView {
     Background bG = new Background(new BackgroundImage(titleScreen, null, null, null, null));
 
 
-    String tempTries;
-    Label tries = new Label(tempTries);
-    int t;
+    private String tempTries;
+    private Label tries = new Label(tempTries);
+    private int t;
 
 
     public void screenEnd(Stage stage){
