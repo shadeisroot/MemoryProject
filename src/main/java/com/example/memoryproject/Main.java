@@ -12,21 +12,22 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     public Pane root;
+    private Stage stage;
     public int endGameCounter = 0;
+    static int imagesFlipped = 0;
     Comparer comparer = new Comparer();
     ArrayList<Piece> comparedPieces = new ArrayList<>();
 
-
-    private Stage stage;
-
-    static int imagesFlipped = 0;
+/*****************************************************************************************/
 
 
     @Override
     public void start(Stage stage) {
         WelcomeScreen ws = new WelcomeScreen(stage);
-    }
+    }//End of start
 
+
+//scene for the game after you click start
     public void gameStart(Stage stage) {
         root = new Pane();
         root.setPrefSize(1250, 1000);
@@ -53,16 +54,20 @@ public class Main extends Application {
         buildGame(eventHandler);
         scene.setCamera(new PerspectiveCamera());
         stage.show();
+    }//End of gameStart
 
-    }
+
+//changes the scene to endingthegame when 10 pictures has been removed
     public void endingTheGame(Stage stage){
         EndScreen es = new EndScreen();
         if(endGameCounter == 10){
             es.screenEnd(stage);
         }
+    }//End of endingTheGame
 
 
-    }
+
+//sets up the game and puts the pieces and mouseevent on each of them
     public void buildGame(EventHandler<MouseEvent> eventHandler) {
         Piece[][] pieces = new Piece[5][4];
         int id = 1;
@@ -74,8 +79,10 @@ public class Main extends Application {
                     pieces[j][i].addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
                 }
             }
-    }
+    }//End of buildgame
 
+
+//Removes images when the images are the same
     public void remover(Stage stage){
         if (comparer.memesAreSame && comparedPieces.size() == 2 && comparedPieces.get(0).id != comparedPieces.get(1).id) {
             root.getChildren().remove(comparedPieces.get(0));
@@ -89,7 +96,7 @@ public class Main extends Application {
             comparedPieces.get(1).showBackSide();
             comparedPieces.clear();
         }
-    }
+    }//End of remover
 
     //Det eneste denne metode gør, er at køre metoden ovenover.. Det er så fucking jank, men det virker, hvis man ikke
     //trykker for hurtigt.
@@ -99,5 +106,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-}
+    }//End of main
+}//End of Class

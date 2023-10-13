@@ -24,7 +24,7 @@ public class Piece extends ImageView {
     public boolean fs;
     public ArrayList<String> gottenMemes;
 
-
+//makes each piece with a image and a location
     public Piece(int nr, int x, int y, Main m) {
         //shuffleMemes();
         id = nr;
@@ -39,19 +39,22 @@ public class Piece extends ImageView {
         setX(x * 250);
         setY(y * 250);
         mn = m;
-    }
+    }//End of Piece
 
 
 
-
+//flips the image
     public void flip() {
         if (fs) {
             showBackSide();
         } else {
             showFrontSide();
         }
-    }
+    }//End of flip
 
+
+
+//makes frontside
     public void showFrontSide(){
 
         readyForAction = false;
@@ -75,8 +78,10 @@ public class Piece extends ImageView {
         showFrontSequence.setOnFinished(e -> readyForAction = true);
         showFrontSequence.setOnFinished(e -> fs = true);
         showFrontSequence.setOnFinished(e -> mn.runRemover());
-    }
+    }//End of fronside
 
+
+//makes backside
     public void showBackSide(){
 
         readyForAction = false;
@@ -101,7 +106,10 @@ public class Piece extends ImageView {
         showBackSequence.setOnFinished(e -> readyForAction = true);
         showBackSequence.setOnFinished(e -> fs = false);
         showBackSequence.setOnFinished(e -> mn.runRemover());
-    }
+    }//End of Backside
+
+
+//Flips back
     public void flipBack(){
             readyForAction = false;
             RotateTransition rotatorHideFront = new RotateTransition(Duration.millis(300), this);
@@ -125,6 +133,6 @@ public class Piece extends ImageView {
             showBackSequence.setOnFinished(e -> readyForAction = true);
             showBackSequence.setOnFinished(e -> mn.comparedPieces.clear());
             showBackSequence.setOnFinished(e -> fs = false);
-        }
+        }//End of flipback
 
-}
+}//End of Class

@@ -13,11 +13,12 @@ import javafx.stage.Stage;
 public class WelcomeScreen extends ImageView {
 
     private Pane introscene;
-
-
     Image titleScreen = new Image(getClass().getResource("FrontScreen.png").toString());
     Background bG = new Background(new BackgroundImage(titleScreen, null, null, null, null));
 
+
+
+//Creates the welcome screen when you click play
     public WelcomeScreen(Stage stage){
         Main mn = new Main();
         introscene = new StackPane();
@@ -34,5 +35,5 @@ public class WelcomeScreen extends ImageView {
         stage.setScene(intro);
         stage.show();
 
-    }
-}
+    }//End of WelcomeScreen
+}//End of Class

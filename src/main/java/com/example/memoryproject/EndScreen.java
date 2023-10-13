@@ -21,9 +21,8 @@ public class EndScreen extends ImageView {
     String tempTries;
     Label tries = new Label(tempTries);
     int t;
-    public EndScreen(){
 
-    }
+
     public void screenEnd(Stage stage){
         Main mn = new Main();
         Pane endScreen = new Pane();
@@ -38,7 +37,7 @@ public class EndScreen extends ImageView {
 
         endScreen.getChildren().add(btn);
         t = Main.imagesFlipped;
-        tempTries = "Attempts: "+ t;
+        tempTries = "Moves: "+ t;
 
         tries.setLayoutX(625);
         tries.setLayoutY(300);
